@@ -8,7 +8,7 @@ private:
     int* data;
 
 public:
-    CppArray(int s = 10) {
+    CppArray (int s = 8) {
         size = s;
         data = new int[size];
         for (int i = 0; i < size; i++)
@@ -24,7 +24,7 @@ public:
         return size;
     }
 
-    // index search
+    // index check
     int& operator[](int index) {
         if (index < 0 || index >= size)
             throw out_of_range("out of range ERROR");
@@ -33,13 +33,13 @@ public:
 
     // cout
     friend ostream& operator<<(ostream& out, const CppArray& arr) {
-        out << "[ ";
+        out << "{ ";
         for (int i = 0; i < arr.size; i++) {
             out << arr.data[i];
             if (i != arr.size - 1)
                 out << ", ";
         }
-        out << " ]";
+        out << " }";
         return out;
     }
 
@@ -50,11 +50,24 @@ public:
         }
         return in;
     }
+
+    CppArray& operator=(const CppArray& other) {
+    delete[] data;
+    size = other.size;
+    data = new int[size];
+
+    for (int i = 0; i < size; i++)
+        data[i] = other.data[i];
+    return *this;
+    }
 };
 
 int main() {
     CppArray arr(3);
     cin >> arr;            // 輸入
     cout << arr << endl;   // 輸出
+    CppArray copyy(3);
+    copyy = arr;
+    cout << copyy << endl;;
     return 0;
 }
