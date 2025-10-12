@@ -5,12 +5,12 @@ using namespace std;
 class CppArray {
 private:
     int size;
-    int* data;
+    float* data;
 
 public:
     CppArray (int s = 8) {
         size = s;
-        data = new int[size];
+        data = new float[size];
         for (int i = 0; i < size; i++)
             data[i] = 0;
     }
@@ -25,7 +25,7 @@ public:
     }
 
     // index check
-    int& operator[](int index) {
+    float& operator[](int index) {
         if (index < 0 || index >= size)
             throw out_of_range("out of range ERROR");
         return data[index];
@@ -33,13 +33,13 @@ public:
 
     // cout
     friend ostream& operator<<(ostream& out, const CppArray& arr) {
-        out << "{ ";
+        out << "{";
         for (int i = 0; i < arr.size; i++) {
             out << arr.data[i];
             if (i != arr.size - 1)
                 out << ", ";
         }
-        out << " }";
+        out << "}";
         return out;
     }
 
@@ -54,7 +54,7 @@ public:
     CppArray& operator=(const CppArray& other) {
     delete[] data;
     size = other.size;
-    data = new int[size];
+    data = new float[size];
 
     for (int i = 0; i < size; i++)
         data[i] = other.data[i];
